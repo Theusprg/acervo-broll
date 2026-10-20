@@ -867,7 +867,7 @@ function roundRect(g, x, y, w, h, r) {
   g.closePath();
 }
 
-function dragImage(items) {
+function dragImage(items, withThumb = true) {
   const W = 176, H = 99, off = items.length > 1 ? 10 : 0;
   const c = document.createElement('canvas');
   c.width = W + off;
@@ -886,7 +886,7 @@ function dragImage(items) {
   g.fillStyle = colors[f.kind] || '#444';
   g.fillRect(0, off, W, H);
   const card = cardEls[S.visible.indexOf(f)];
-  const img = card?.querySelector('img.loaded');
+  const img = withThumb ? card?.querySelector('img.loaded') : null;
   let drew = false;
   if (img?.naturalWidth) {
     const s = Math.max(W / img.naturalWidth, H / img.naturalHeight);
@@ -912,7 +912,12 @@ function dragImage(items) {
     g.textBaseline = 'middle';
     g.fillText(items.length > 99 ? '99+' : String(items.length), W + off - 16, 16.5);
   }
-  try { return c.toDataURL('image/png'); } catch { return null; }
+  try {
+    return c.toDataURL('image/png');
+  } catch {
+    // Miniatura sem permissão de leitura "suja" o canvas: refaz só com a cor e a extensão.
+    return withThumb ? dragImage(items, false) : null;
+  }
 }
 
 function startDragOut(items) {
@@ -926,7 +931,7 @@ function startDragOut(items) {
   let dropped = false;
   const channel = new T.core.Channel();
   channel.onmessage = (r) => { if (r?.result === 'Dropped') dropped = true; };
-  const image = dragImage(items) || toSrc(paths[0]);
+  const image = dragImage(items);
   invoke('plugin:drag|start_drag', { item: paths, image, options: { mode: 'copy' }, onEvent: channel })
     .catch((e) => toast(`Não deu pra arrastar: ${e}`, 'error'))
     .finally(() => setTimeout(() => {
@@ -1098,7 +1103,7 @@ function cardMenu(x, y) {
     '-',
     one && { label: `Mostrar no ${FINDER}`, run: () => invoke('reveal', { path: one.path }) },
     one && { label: 'Abrir no programa padrão', run: () => invoke('open_default', { path: one.path }) },
-    { label: files.length > 1 ? 'Copiar caminhos' : 'Copiar caminho', run: () => navigator.clipboard.writeText(files.map((f) => f.path).join('\n')).then(() => toast('Copiado', 'ok')) },
+    { label: files.length > 1 ? 'Copiar caminhos' : 'Copiar caminho', run: () => navigator.clipboard.writeText(files.map((f) => f.path).join('\n')).then(() => toast('Copiado', 'ok'), () => toast('Não deu pra copiar', 'error')) },
     '-',
     one && { label: 'Renomear', kbd: 'F2', run: () => renameItem(one.path, false) },
     { label: `Mover ${TRASH.para}`, kbd: IS_MAC ? '⌘⌫' : 'Del', danger: true, run: () => trashItems(files.map((f) => f.path)) },
