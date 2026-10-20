@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a2c33"/>
+      <stop offset="1" stop-color="#141519"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff8a4c"/>
+      <stop offset="1" stop-color="#f2542d"/>
+    </linearGradient>
+  </defs>
+  <rect x="100" y="100" width="824" height="824" rx="184" fill="url(#bg)"/>
+  <rect x="100.5" y="100.5" width="823" height="823" rx="183.5" fill="none" stroke="#ffffff" stroke-opacity="0.08"/>
+  <!-- pilha de clipes -->
+  <rect x="300" y="268" width="424" height="252" rx="36" fill="#ffffff" fill-opacity="0.10"/>
+  <rect x="260" y="330" width="504" height="300" rx="40" fill="#ffffff" fill-opacity="0.18"/>
+  <rect x="216" y="400" width="592" height="352" rx="46" fill="url(#card)"/>
+  <!-- furos de película -->
+  <g fill="#141519" fill-opacity="0.28">
+    <rect x="252" y="430" width="38" height="26" rx="8"/>
+    <rect x="252" y="490" width="38" height="26" rx="8"/>
+    <rect x="252" y="550" width="38" height="26" rx="8"/>
+    <rect x="252" y="610" width="38" height="26" rx="8"/>
+    <rect x="252" y="670" width="38" height="26" rx="8"/>
+    <rect x="734" y="430" width="38" height="26" rx="8"/>
+    <rect x="734" y="490" width="38" height="26" rx="8"/>
+    <rect x="734" y="550" width="38" height="26" rx="8"/>
+    <rect x="734" y="610" width="38" height="26" rx="8"/>
+    <rect x="734" y="670" width="38" height="26" rx="8"/>
+  </g>
+  <path d="M462 500 L462 652 Q462 672 480 662 L600 592 Q616 576 600 566 L480 494 Q462 484 462 500 Z" fill="#ffffff"/>
+</svg>

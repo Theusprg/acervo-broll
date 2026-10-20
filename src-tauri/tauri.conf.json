@@ -1,0 +1,59 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Acervo",
+  "version": "0.1.0",
+  "identifier": "com.pauloaguiarx.acervo",
+  "build": {
+    "frontendDist": "../src"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [
+      {
+        "label": "main",
+        "title": "Acervo",
+        "width": 1320,
+        "height": 840,
+        "minWidth": 900,
+        "minHeight": 560,
+        "center": true,
+        "dragDropEnabled": true,
+        "backgroundColor": "#121316"
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self' ipc: http://ipc.localhost; img-src 'self' asset: http://asset.localhost data: blob:; media-src 'self' asset: http://asset.localhost blob:; style-src 'self' 'unsafe-inline'",
+      "assetProtocol": {
+        "enable": true,
+        "scope": {
+          "allow": ["**"],
+          "requireLiteralLeadingDot": false
+        }
+      }
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "category": "Video",
+    "shortDescription": "Acervo de B-roll",
+    "longDescription": "Biblioteca de vídeos, imagens e áudios pra arrastar direto pro CapCut, Premiere ou DaVinci.",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "macOS": {
+      "minimumSystemVersion": "10.15",
+      "signingIdentity": "-"
+    },
+    "windows": {
+      "nsis": {
+        "languages": ["PortugueseBR"],
+        "installMode": "currentUser"
+      }
+    }
+  }
+}
